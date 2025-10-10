@@ -1,5 +1,4 @@
-package main.java.com.upb.agripos;
-
+//HelloProsedural
 public class HelloProsedural {
         public static void sapa(String nama, String nim){
         System.out.println("Hello World, I am "+ nama + " -"+ nim);
@@ -21,3 +20,4 @@ public class HelloProsedural {
 
     
 }
+
