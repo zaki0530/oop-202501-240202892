@@ -1,4 +1,4 @@
-package main.java.com.upb.agripos;
+//HelloOop
 class Mahasiswa {
     String nama;
     String nim; // Menggunakan String untuk NIM
@@ -24,3 +24,4 @@ public class HelloOop {
     }
     
 }
+
