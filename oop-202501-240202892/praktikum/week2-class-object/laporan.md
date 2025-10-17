@@ -2,7 +2,7 @@
 Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
 
 ## Identitas
-- Nama  : [AAbu Zaki]
+- Nama  : [Abu Zaki]
 - NIM   : [240202892]
 - Kelas : [3IKRB]
 
@@ -32,8 +32,7 @@ Mahasiswa memahami konsep Class, Object, dan Enkapsulasi dalam pemrograman beror
 
 ## Kode Program
 1.Produk.java
-package com.upb.agripos.model;
-// Produk.java
+package main.java.com.upb.agripos.model;
 
 public class Produk {
     private String kode;
@@ -61,12 +60,7 @@ public class Produk {
     public void setStok(int stok) { this.stok = stok; }
 
     public void tambahStok(int jumlah) {
-        if (jumlah > 0) {
-            this.stok += jumlah;
-        } else {
-            System.out.println("Jumlah stok yang ditambahkan tidak boleh ditambahkan!");
-            
-        }
+        this.stok += jumlah;
     }
 
     public void kurangiStok(int jumlah) {
@@ -78,18 +72,19 @@ public class Produk {
     }
 }
 2.CreditBy.java
-package com.upb.agripos.util; 
+package main.java.com.upb.agripos.model.util;
 
 public class CreditBy {
     public static void print(String nim, String nama) {
         System.out.println("\ncredit by: " + nim + " - " + nama);
     }
 }
-3.MainProduk.java
-package com.upb.agripos; 
 
-import com.upb.agripos.model.Produk;
-import com.upb.agripos.util.CreditBy;
+3.MainProduk.java
+package main.java.com.upb.agripos;
+
+import main.java.com.upb.agripos.model.Produk;
+import main.java.com.upb.agripos.model.util.CreditBy;;
 
 public class MainProduk {
     public static void main(String[] args) {
@@ -101,30 +96,25 @@ public class MainProduk {
         System.out.println("Kode: " + p2.getKode() + ", Nama: " + p2.getNama() + ", Harga: " + p2.getHarga() + ", Stok: " + p2.getStok());
         System.out.println("Kode: " + p3.getKode() + ", Nama: " + p3.getNama() + ", Harga: " + p3.getHarga() + ", Stok: " + p3.getStok());
 
-        System.out.println(); 
-        System.out.println("Benih Padi IR64: " + p1.getStok());
-        p1.kurangiStok(25); // Memicu pesan error
-        System.out.println("sisa stok " + p1.getNama() + " setelah berkurang 25 produk: " + p1.getStok());
+        // Tambah dan kurangi stok
+        p1.tambahStok(25);
+        p2.kurangiStok(100);
+        p3.tambahStok(2005);
 
-        System.out.println(); 
-        System.out.println("Pupuk Urea 50kg: " + p2.getStok());
-        p2.tambahStok(100); // Memicu pesan error
-        System.out.println("sisa stok " + p2.getNama() + " setelah bertambah 100 produk: " + p2.getStok());
+        System.out.println("\nSetelah update stok:");
+        System.out.println("Kode: " + p1.getKode() + ", Nama: " + p1.getNama() + ", Harga: " + p1.getHarga() + ", Stok: " + p1.getStok());
+        System.out.println("Kode: " + p2.getKode() + ", Nama: " + p2.getNama() + ", Harga: " + p2.getHarga() + ", Stok: " + p2.getStok());
+        System.out.println("Kode: " + p3.getKode() + ", Nama: " + p3.getNama() + ", Harga: " + p3.getHarga() + ", Stok: " + p3.getStok());
 
-        System.out.println(); 
-        System.out.println("Stok awal Cangkul Baja: " + p3.getStok());
-        p3.kurangiStok(2005); // Memicu pesan error
-        System.out.println("sisa stok " + p3.getNama() + " setelah berkurang 2005 produk: " + p3.getStok());
-        // Tampilkan identitas mahasiswa
-        CreditBy.print("abu zaki", "240202892");
+        CreditBy.print("240202892", "AbuZaki");
     }
-    
 }
+
 ---
 
 ## Hasil Eksekusi
 (Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
+![Screenshot hasil](oop-202501-240202892/praktikum/week2-class-object/screenshots/Screenshot (3).png)
 )
 ---
 
