@@ -128,6 +128,7 @@ public class MainProduk {
 )
 ---
 
+
 ## Analisis
 -Jelaskan bagaimana kode berjalan Kode terdiri dari tiga kelas: Produk mendefinisikan item dengan stok yang bisa ditambah atau dikurangi; MainProduk menginisiasi tiga objek Produk, menampilkan detailnya, lalu mencoba memanipulasi stok (p1 berhasil dikurangi, p2 gagal ditambah karena bug di pesan validasi, dan p3 gagal dikurangi karena stok kurang), dan diakhiri dengan mencetak kredit penulis menggunakan kelas CreditBy.
 -Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.
