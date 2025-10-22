@@ -1,4 +1,4 @@
-# Laporan Praktikum Minggu 2 (sesuaikan minggu ke berapa?)
+# Laporan Praktikum Minggu 2 
 Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
 
 ## Identitas
@@ -14,9 +14,7 @@ Mahasiswa memahami konsep Class, Object, dan Enkapsulasi dalam pemrograman beror
 ---
 
 ## Dasar Teori
-1.class (kelas): Adalah blueprint atau cetak biru yang mendefinisikan sifat (atribut/variabel) dan perilaku (metode/fungsi) dari semua objek yang akan dibuat darinya. Dalam praktikum ini, Produk adalah sebuah kelas.
-2.Object (Objek): Adalah instansiasi (perwujudan nyata) dari suatu kelas. Objek memiliki state (nilai dari atribut) dan perilaku. Dalam praktikum ini, p1, p2, dan p3 adalah objek dari kelas Produk.
-3.Encapsulation (Enkapsulasi): Prinsip OOP untuk membungkus data (atribut) dan metode yang memprosesnya ke dalam satu unit (kelas). Dalam implementasi Java, ini dilakukan dengan membuat atribut menjadi private dan menyediakan akses melalui metode public seperti getter (getKode()) dan setter.
+1.class (kelas): Adalah blueprint atau cetak biru yang mendefinisikan sifat (atribut/variabel) dan perilaku (metode/fungsi) dari semua objek yang akan dibuat darinya. Dalam praktikum ini, Produk adalah sebuah kelas. 2.Object (Objek): Adalah instansiasi (perwujudan nyata) dari suatu kelas. Objek memiliki state (nilai dari atribut) dan perilaku. Dalam praktikum ini, p1, p2, dan p3 adalah objek dari kelas Produk. 3.Encapsulation (Enkapsulasi): Prinsip OOP untuk membungkus data (atribut) dan metode yang memprosesnya ke dalam satu unit (kelas). Dalam implementasi Java, ini dilakukan dengan membuat atribut menjadi private dan menyediakan akses melalui metode public seperti getter (getKode()) dan setter.
 ---
 
 ## Langkah Praktikum
