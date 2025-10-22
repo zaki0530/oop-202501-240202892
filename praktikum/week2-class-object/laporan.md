@@ -30,7 +30,7 @@ Mahasiswa memahami konsep Class, Object, dan Enkapsulasi dalam pemrograman beror
 
 ## Kode Program
 1.Produk.java
-package main.java.com.upb.agripos.model;
+package com.upb.agripos.model;
 
 public class Produk {
     private String kode;
@@ -58,7 +58,12 @@ public class Produk {
     public void setStok(int stok) { this.stok = stok; }
 
     public void tambahStok(int jumlah) {
-        this.stok += jumlah;
+        if (jumlah > 0) {
+            this.stok += jumlah;
+        } else {
+            System.out.println("Jumlah stok yang ditambahkan tidak boleh ditambahkan!");
+            
+        }
     }
 
     public void kurangiStok(int jumlah) {
@@ -68,9 +73,10 @@ public class Produk {
             System.out.println("Stok tidak mencukupi!");
         }
     }
-}
+} 
+
 2.CreditBy.java
-package main.java.com.upb.agripos.model.util;
+package com.upb.agripos.util;
 
 public class CreditBy {
     public static void print(String nim, String nama) {
@@ -79,35 +85,40 @@ public class CreditBy {
 }
 
 3.MainProduk.java
-package main.java.com.upb.agripos;
+package com.upb.agripos; 
 
-import main.java.com.upb.agripos.model.Produk;
-import main.java.com.upb.agripos.model.util.CreditBy;;
+import com.upb.agripos.model.*;
+import com.upb.agripos.util.CreditBy;
 
 public class MainProduk {
     public static void main(String[] args) {
-        Produk p1 = new Produk("BNH-001", "Benih Padi IR64", 25000, 200);
-        Produk p2 = new Produk("PPK-101", "Pupuk Urea 50kg", 350000, 50);
-        Produk p3 = new Produk("ALT-501", "Cangkul Baja", 90000, 30);
+        Produk p1 = new Produk("BNH-001", "Benih Padi IR64", 25000, 150);
+        Produk p2 = new Produk("PPK-101", "Pupuk Urea 50kg", 350000, 35);
+        Produk p3 = new Produk("ALT-501", "Cangkul Baja", 90000, 25);
 
         System.out.println("Kode: " + p1.getKode() + ", Nama: " + p1.getNama() + ", Harga: " + p1.getHarga() + ", Stok: " + p1.getStok());
         System.out.println("Kode: " + p2.getKode() + ", Nama: " + p2.getNama() + ", Harga: " + p2.getHarga() + ", Stok: " + p2.getStok());
         System.out.println("Kode: " + p3.getKode() + ", Nama: " + p3.getNama() + ", Harga: " + p3.getHarga() + ", Stok: " + p3.getStok());
 
-        // Tambah dan kurangi stok
-        p1.tambahStok(25);
-        p2.kurangiStok(100);
-        p3.tambahStok(2005);
+        System.out.println(); 
+        System.out.println("Benih Padi IR64: " + p1.getStok());
+        p1.kurangiStok(5); // Memicu pesan error
+        System.out.println("sisa stok " + p1.getNama() + " setelah berkurang 23 produk: " + p1.getStok());
 
-        System.out.println("\nSetelah update stok:");
-        System.out.println("Kode: " + p1.getKode() + ", Nama: " + p1.getNama() + ", Harga: " + p1.getHarga() + ", Stok: " + p1.getStok());
-        System.out.println("Kode: " + p2.getKode() + ", Nama: " + p2.getNama() + ", Harga: " + p2.getHarga() + ", Stok: " + p2.getStok());
-        System.out.println("Kode: " + p3.getKode() + ", Nama: " + p3.getNama() + ", Harga: " + p3.getHarga() + ", Stok: " + p3.getStok());
+        System.out.println(); 
+        System.out.println("Pupuk Urea 50kg: " + p2.getStok());
+        p2.tambahStok(20); // Memicu pesan error
+        System.out.println("sisa stok " + p2.getNama() + " setelah bertambah 250 produk: " + p2.getStok());
 
-        CreditBy.print("240202892", "AbuZaki");
+        System.out.println(); 
+        System.out.println("Stok awal Cangkul Baja: " + p3.getStok());
+        p3.kurangiStok(2005); // Memicu pesan error
+        System.out.println("sisa stok " + p3.getNama() + " setelah berkurang 2005 produk: " + p3.getStok());
+        // Tampilkan identitas mahasiswa
+        CreditBy.print("240202892", "Abu Zaki");
     }
+    
 }
-
 ---
 
 ## Hasil Eksekusi
