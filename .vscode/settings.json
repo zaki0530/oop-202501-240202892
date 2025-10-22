@@ -1,7 +1,0 @@
-{
-    "java.project.sourcePaths": [
-        "oop-202501-240202892/praktikum/week2-class-object/src",
-        "oop-202501-240202892/praktikum/week1-setup-hello-pos/src/hasil"
-    ],
-    "java.debug.settings.onBuildFailureProceed": true
-}
