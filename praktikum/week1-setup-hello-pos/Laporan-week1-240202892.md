@@ -1,7 +1,9 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
+# Laporan Praktikum Minggu 1
+
 Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
 
 ## Identitas
+
 - Nama  : [Abu zaki]
 - NIM   : [240202892]
 - Kelas : [3IKRB]
@@ -9,11 +11,13 @@ Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
 ---
 
 ## Tujuan
-agar bisa memahami mata kuliah minggu ini 
+
+agar bisa memahami mata kuliah minggu ini
 
 ---
 
 ## Dasar Teori
+
 1.Pemrograman Berorientasi Objek (OOP): Paradigma yang berfokus pada Objek (instansiasi dari Kelas). Data dan perilaku (metode) dibungkus menjadi satu unit. Contoh di praktikum adalah class Mahasiswa.
 2.Pemrograman Prosedural: Paradigma yang berfokus pada urutan instruksi dan prosedur (fungsi atau metode) yang dijalankan. Data biasanya terpisah dari prosedur yang memprosesnya.
 3.Pemrograman Fungsional (Dasar): Paradigma yang memperlakukan komputasi sebagai evaluasi fungsi matematika, berfokus pada input dan output (ekspresi) tanpa mengubah state global. (Dalam Java, fitur ini diwujudkan oleh lambda dan Stream API).
@@ -22,6 +26,7 @@ agar bisa memahami mata kuliah minggu ini
 ---
 
 ## Langkah Praktikum
+
 1.Setup Awal: Melakukan instalasi dan konfigurasi lingkungan Java Development Kit (JDK) dan Visual Studio Code (VS Code) untuk menjalankan proyek Java serta install git sebagai persiapan untuk mengelola proyek yang lebih kompleks dan agar terbiasa dengan alur kerja profesional.
 2.Implementasi OOP: Membuat file HelloOOP.java dan mendefinisikan class Mahasiswa dengan atribut nama dan nim, serta metode sapa() dan konstruktor.
 3.Implementasi Prosedural: Membuat file HelloProsedural.java yang menggunakan metode statis (sapa()) untuk menampilkan data secara berurutan.
@@ -32,6 +37,7 @@ agar bisa memahami mata kuliah minggu ini
 ---
 
 ## Kode Program
+
 1.HelloProsedural.java
 package main.java.com.upb.agripos;
 
@@ -91,7 +97,7 @@ package main.java.com.upb.agripos;
 public class HelloFunctional {
     public static void main(String[] args) {
         String nim = "240202892";
-        String nama = "Abu zaki"; 
+        String nama = "Abu zaki";
 
         // Tampilan yang diminta
         System.out.println("Hello World, I am " + nama + " -" + nim);
@@ -105,12 +111,17 @@ public class HelloFunctional {
 ---
 
 ## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
+
+(Sertakan screenshot hasil eksekusi program.
+
 ![Screenshot hasil](screenshots(107).png screenshots(108).png screenshots(109).png)
+
 )
+
 ---
 
 ## Analisis
+
 A. Perbedaan Struktur Paradigma
 
 1.fitur kunci: HelloOOP.java (Berorientasi Objek), HelloProsedural.java (Prosedural), HelloFunctional.java (Fungsional Dasar);
@@ -122,14 +133,25 @@ A. Perbedaan Struktur Paradigma
 7.HelloProsedural.java: Alur bersifat Linear. Program mendeklarasikan data lokal di main, menjalankan instruksi cetak langsung, lalu memanggil prosedur sapa() dengan melewatkan salinan data tersebut sebagai parameter.
 8.HelloFunctional.java: Program berfokus pada Ekspresi. Variabel didefinisikan, dan kemudian satu ekspresi tunggal ("Hello World, I am " + nama + " -" + nim) dievaluasi (digabungkan) untuk menghasilkan output yang final. C. Kendala dan Penanganan
 9.Kendala awal: Ditemukan kendala tipe data (menggunakan int untuk umur/NIM di awal implementasi OOP) serta inkonsistensi penulisan nama (tidak menggunakan kapitalisasi) pada file fungsional.
-10.Penanganan: Kendala diatasi dengan: a. Mengganti tipe data int dengan String untuk atribut nim pada semua implementasi agar lebih fleksibel. b. Melakukan Kapitalisasi pada variabel nama ("Kayla Putri Arsonisr") untuk mengikuti konvensi penulisan dan memastikan output yang lebih formal.
-
+10.Penanganan: Kendala diatasi dengan: a. Mengganti tipe data int dengan String untuk atribut nim pada semua implementasi agar lebih fleksibel. b. Melakukan Kapitalisasi pada variabel nama ("Kayla Putri Arsonisr") untuk mengikuti konvensi
+penulisan dan memastikan output yang lebih formal.
 
 ## Kesimpulan
-Praktikum ini berhasil menunjukkan bahwa Java adalah bahasa multi-paradigma. OOP unggul dalam strukturisasi kode untuk aplikasi besar dengan mengikat data dan perilaku ke dalam kelas. Prosedural cepat dan langsung untuk tugas sederhana, sementara pendekatan Fungsional (walaupun sederhana) menunjukkan fokus pada evaluasi ekspresi data, menjadikannya bersih dari side effect. Pemahaman ketiga paradigma ini adalah dasar penting dalam pengembangan perangkat lunak Java.
+
+ Praktikum ini berhasil menunjukkan bahwa Java adalah bahasa multi-paradigma. OOP unggul dalam strukturisasi kode untuk
+
+ aplikasi besar dengan mengikat data dan perilaku ke dalam kelas.
+
+ Prosedural cepat dan langsung untuk tugas sederhana, sementara pendekatan Fungsional (walaupun sederhana) menunjukkan
+
+ fokus pada evaluasi ekspresi data, menjadikannya bersih dari side effect.
+
+ Pemahaman ketiga paradigma ini adalah dasar penting dalam pengembangan perangkat lunak Java
+
 ---
 
 ## Quiz
+
 1.Apakah OOP selalu lebih baik dari prosedural? Jawaban: Tidak. OOP lebih baik untuk aplikasi kompleks, besar, dan membutuhkan pemodelan entitas (seperti Mahasiswa). Prosedural lebih baik untuk skrip atau program kecil yang hanya menjalankan tugas berurutan sederhana.
 2.Kapan functional programming lebih cocok digunakan dibanding OOP atau prosedural? Jawaban: Ketika fokus utama adalah transformasi data (memproses list, filter, map) dan ketika dibutuhkan paralelisme (multithreading) karena sifatnya yang menghindari state yang dapat diubah (mutable state).
 3.Bagaimana paradigma (prosedural, OOP, fungsional) memengaruhi maintainability dan scalability aplikasi? Jawaban: OOP dan Fungsional memiliki maintainability dan scalability yang tinggi. OOP unggul karena enkapsulasi mengisolasi perubahan, sementara Fungsional unggul karena fungsi murni mudah diuji. Prosedural memiliki maintainability dan scalability rendah pada skala besar.

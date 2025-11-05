@@ -1,7 +1,9 @@
 # Laporan Praktikum Minggu 3
+
 Topik: Pewarisan (Inheritance), Superclass, dan Subclass
 
 ## Identitas
+
 - Nama  : Abu Zaki
 - NIM   : 240202892
 - Kelas : 3IKRB
@@ -9,13 +11,16 @@ Topik: Pewarisan (Inheritance), Superclass, dan Subclass
 ---
 
 ## Tujuan
+
 1. memahami konsep Pewarisan (Inheritance) dalam Pemrograman Berorientasi Objek.
 2. Dapat mengimplementasikan Superclass (Produk) dan Subclass (Benih, Pupuk, AlatPertanian).
 3. Mampu menerapkan Method Overriding untuk menyesuaikan perilaku pada Subclass.
 4. Dapat membuat method tambahan (deskripsi()) pada Subclass sebagai implementasi Polymorphism.
+
 ---
 
 ## Dasar Teori
+
 1. Inheritance (Pewarisan): Mekanisme di mana sebuah kelas (Subclass) dapat mewarisi atribut dan method dari kelas lain (Superclass). Inheritance mempromosikan reusabilitas kode.
 2. Superclass (Parent Class): Kelas dasar yang mewariskan properti dan perilaku kepada Subclass. Dalam kasus ini, Produk adalah Superclass.
 3. Subclass (Child Class): Kelas turunan yang mewarisi Superclass. Subclass dapat memiliki atribut dan method spesifiknya sendiri. Subclass dideklarasikan menggunakan kata kunci extends.
@@ -25,6 +30,7 @@ Topik: Pewarisan (Inheritance), Superclass, dan Subclass
 ---
 
 ## Langkah Praktikum
+
 1. Setup Proyek: Membuat struktur direktori dan package sesuai standar (com.upb.agripos.model/, com.upb.agripos.util/, dll.).
 2. Implementasi Superclass: Membuat kelas Produk.java sebagai Superclass dengan atribut dasar (kode, nama, harga, stok) dan method tampilkanData(). Atribut disetel sebagai protected.
 3. Implementasi Subclass (Tugas 1 & 2): Membuat tiga Subclass (Benih, Pupuk, AlatPertanian) yang menggunakan extends Produk. Masing-masing Subclass menambahkan atribut khusus (varietas, jenis, material).
@@ -36,6 +42,7 @@ Topik: Pewarisan (Inheritance), Superclass, dan Subclass
 ---
 
 ## Kode Program
+
 1. Produk.java
 package main.java.com.upb.agripos.model;
 // Produk.java
@@ -44,7 +51,7 @@ public class Produk {
     private String kode;
     private String nama;
     private double harga;
-    private int stok;
+    protected int stok;
 
     public Produk(String kode, String nama, double harga, int stok) {
         this.kode = kode;
@@ -68,17 +75,29 @@ public class Produk {
     public void tambahStok(int jumlah) {
         if (jumlah > 0) {
             this.stok += jumlah;
+            System.out.println("Stok " + nama + " bertambah " + jumlah + " (int). Stok baru: " + this.stok);
         } else {
-            System.out.println("Jumlah stok yang ditambahkan tidak boleh ditambahkan!");
-            
+            // Mengubah pesan agar lebih sesuai konteks
+            System.out.println("Gagal: Jumlah stok yang ditambahkan harus lebih dari nol!");
+        }
+    }
+
+    public void tambahStok(double jumlah) {
+        int jumlahInt = (int) Math.round(jumlah);
+        if (jumlahInt > 0) {
+            this.stok += jumlahInt;
+            System.out.println("Stok " + nama + " bertambah " + jumlah + " (double/dibulatkan jadi " + jumlahInt + "). Stok baru: " + this.stok);
+        } else {
+            System.out.println("Gagal: Jumlah stok yang ditambahkan (setelah dibulatkan) harus lebih dari nol!");
         }
     }
 
     public void kurangiStok(int jumlah) {
         if (this.stok >= jumlah) {
             this.stok -= jumlah;
+            System.out.println("Stok " + nama + " berkurang " + jumlah + ". Stok baru: " + this.stok);
         } else {
-            System.out.println("Stok tidak mencukupi!");
+            System.out.println("Stok tidak mencukupi untuk " + nama + "! Tersedia: " + this.stok);
         }
     }
 
@@ -89,12 +108,17 @@ public class Produk {
         System.out.println("  Stok Tersedia: " + stok);
     }
 
-    
+    public void getInfo() {
+        System.out.println("--- Detail Produk Umum ---");
+        System.out.println(" Kode: " + kode);
+        System.out.println(" Nama: " + nama);
+        System.out.println(" Harga (Rp): " + harga);
+        System.out.println(" Stok Tersedia: " + stok);
+    }
+
 }
 
-
-
-2. Benih.java
+2.Benih.java
 package main.java.com.upb.agripos.model;
 
 public class Benih extends Produk {
@@ -108,26 +132,38 @@ public class Benih extends Produk {
     public String getVarietas() { return varietas; }
     public void setVarietas(String varietas) { this.varietas = varietas; }
 
+
     @Override
     public void tampilkanData() {
         System.out.println("\n--- Detail Produk Benih ---");
         super.tampilkanData(); // Memanggil method tampilkanData() dari class Produk
         System.out.println("  Varietas Benih : " + varietas);
     }
-
+    
     public void deskripsi() {
         tampilkanData(); // Memanggil tampilkanData() yang sudah di-override
         System.out.println("  Keterangan Tambahan: Benih " + varietas + " ini merupakan varietas unggul dengan ketahanan penyakit yang baik.");
     }
-    
+
+    @Override
+    public void getInfo() {
+        System.out.println("--- Detail BENIH ---");
+        System.out.println(" Kode: " + getKode());
+        System.out.println(" Nama: " + getNama());
+        System.out.println(" Varietas: " + varietas);
+        // Menggunakan getHarga() dan getStok() dari Produk untuk keamanan
+        System.out.println(" Harga (Rp): " + getHarga()); 
+        System.out.println(" Stok: " + getStok() + " bungkus.");
+    }
+
 }
 
-
-3. Pupuk.java
+3.Pupuk.java
 package main.java.com.upb.agripos.model;
 
 public class Pupuk extends Produk {
-    private String jenis;
+
+    private String jenis; 
 
     public Pupuk(String kode, String nama, double harga, int stok, String jenis) {
         super(kode, nama, harga, stok);
@@ -137,13 +173,15 @@ public class Pupuk extends Produk {
     public String getJenis() { return jenis; }
     public void setJenis(String jenis) { this.jenis = jenis; }
 
+
     @Override
     public void tampilkanData() {
         System.out.println("\n--- Detail Produk Pupuk ---");
         super.tampilkanData(); // Memanggil tampilkanData() dari class Produk
         System.out.println("  Jenis Pupuk    : " + jenis); // Menampilkan atribut khusus
     }
-    
+
+     
     public void deskripsi() {
         tampilkanData(); 
         String ket;
@@ -157,9 +195,17 @@ public class Pupuk extends Produk {
         System.out.println("  Keterangan Tambahan: " + ket);
     }
 
+    @Override
+    public void getInfo() {
+        System.out.println("--- Detail PUPUK ---");
+        System.out.println(" Kode: " + getKode());
+        System.out.println(" Nama: " + getNama());
+        System.out.println(" Jenis Pupuk: " + jenis);
+        System.out.println(" Harga (Rp): " + getHarga()); 
+        System.out.println(" Stok: " + getStok() + " karung.");
+    }
 }
-
-4. AlatPertanian.java
+4.AlatPertanian.java
 package main.java.com.upb.agripos.model;
 
 public class AlatPertanian extends Produk {
@@ -170,9 +216,11 @@ public class AlatPertanian extends Produk {
         this.material = material;
     }
 
+
     public String getMaterial() { return material; }
     public void setMaterial(String material) { this.material = material; }
 
+    
     @Override
     public void tampilkanData() {
         System.out.println("\n--- Detail Produk Alat Pertanian ---");
@@ -180,6 +228,7 @@ public class AlatPertanian extends Produk {
         System.out.println("  Material       : " + material); // Display the specific attribute
     }
 
+    
     public void deskripsi() {
         tampilkanData(); 
         String ket;
@@ -192,12 +241,19 @@ public class AlatPertanian extends Produk {
         }
         System.out.println("  Keterangan Tambahan: " + ket);
     }
-    
+
+    @Override
+    public void getInfo() {
+        System.out.println("--- Detail ALAT PERTANIAN ---");
+        System.out.println(" Kode: " + getKode());
+        System.out.println(" Nama: " + getNama());
+        System.out.println(" Material Utama: " + material);
+        System.out.println(" Harga (Rp): " + getHarga());
+        System.out.println(" Stok: " + getStok() + " unit.");
+    }
 }
 
-
-
-5. MainInheritance
+5.MainInheritance
 package main.java.com.upb.agripos;
 
 import main.java.com.upb.agripos.model.AlatPertanian;
@@ -207,8 +263,8 @@ import main.java.com.upb.agripos.util.CreditBy;
 
 public class MainInheritance {
     public static void main(String[] args) {
-        
-        System.out.println("=============== PRAKTIKUM INHERITANCE (WEEK 3) ===============");
+
+     System.out.println("=============== PRAKTIKUM INHERITANCE (WEEK 3) ===============");
         
         
         Benih b = new Benih("BNH-001", "Benih Padi IR64", 25000.0, 100, "IR64");
@@ -251,8 +307,8 @@ public class MainInheritance {
     
 }
 
-6. CreditBy.java
-package main.java.com.upb.agripos.util; 
+6.CreditBy.java
+package main.java.com.upb.agripos.util;
 
 public class CreditBy {
     public static void print(String nim, String nama) {
@@ -263,12 +319,21 @@ public class CreditBy {
 ---
 
 ## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil] ![alt text] ![alt text] ![alt text](<Screenshot (128).png>) ![alt text](<Screenshot (129).png>) atau ![alt text](<Screenshot (140).png>) ![alt text](<Screenshot (141).png>)
-)
+
+![Screenshot hasil] ![alt text] ![alt text]
+
+![alt text](<Screenshot (128).png>)
+
+ ![alt text](<Screenshot (129).png>)
+
+ atau ![alt text](<Screenshot (140).png>)
+
+ ![alt text](<Screenshot (141).png>)
+
 ---
 
 ## Analisis
+
 1. Praktikum minggu ini berfokus pada Inheritance. Konsep ini memungkinkan Benih, Pupuk, dan AlatPertanian mewarisi semua properti dasar dari Produk tanpa harus mendefinisikan ulang atribut seperti kode, nama, harga, dan stok.
 
 2. Pendekatan praktikum Minggu 2 dan Minggu 3 memiliki perbedaan fokus yang mendasar dalam implementasi OOP. Minggu 2, yang berfokus pada Class dan Object serta Enkapsulasi, bertujuan utama pada keamanan data (data hiding) dan kontrol vertikal terhadap sebuah unit data tunggal, di mana atribut seperti stok dideklarasikan sebagai private dan diakses melalui getter serta setter yang ketat. Sebaliknya, pendekatan Minggu 3, yaitu Pewarisan (Inheritance), bertujuan pada reusabilitas kode dan spesialisasi kelas. Inheritance menciptakan hierarki horizontal di mana Subclass (seperti Benih) dapat memperluas fungsionalitas Superclass (Produk) menggunakan kata kunci extends. Dalam konteks ini, hak akses atribut Superclass diubah menjadi protected untuk memfasilitasi akses langsung oleh Subclass, memungkinkan pengembangan fitur khusus (seperti deskripsi()) tanpa perlu menulis ulang kode dasar yang sudah diwarisi.
@@ -279,11 +344,13 @@ public class CreditBy {
 ---
 
 ## Kesimpulan
+
 Pewarisan (Inheritance) adalah mekanisme fundamental OOP yang sangat efektif untuk membangun hierarki kelas. Dengan Inheritance, kami berhasil membuat berbagai jenis produk pertanian yang memiliki sifat dasar yang sama (Produk) namun memiliki perilaku dan atribut spesifik yang berbeda, menunjukkan penerapan Polymorphism melalui Method Overriding secara efektif.
 
 ---
 
 ## Quiz
+
 1. Apa keuntungan menggunakan inheritance dibanding membuat class terpisah tanpa hubungan?
     Jawaban: Keuntungan utama menggunakan Inheritance adalah reusabilitas kode dan kemudahan pemeliharaan. Subclass secara otomatis mewarisi atribut dan method dari Superclass, sehingga kode tidak perlu ditulis berulang kali. Ini juga menciptakan struktur hierarki yang jelas, mendukung prinsip Polymorphism dan mempermudah penambahan fitur baru di masa depan.
 
