@@ -284,8 +284,10 @@ public class MainAbstraction {
 
 ## Hasil Eksekusi
 (Sertakan screenshot hasil eksekusi program.  
-![alt text](<Screenshot (178).png>) ![alt text](<Screenshot (179).png>) ![alt text](<Screenshot (180).png>)
-)
+![Uploading Screenshot (178).png…]() ![Uploading Screenshot (179).png…]() ![Uploading Screenshot (180).png…]()
+
+
+
 ---
 
 ## Analisis
