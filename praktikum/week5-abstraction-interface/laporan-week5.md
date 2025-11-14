@@ -284,7 +284,9 @@ public class MainAbstraction {
 
 ## Hasil Eksekusi
 (Sertakan screenshot hasil eksekusi program.  
-<img width="1920" height="1080" alt="Screenshot (180)" src="https://github.com/user-attachments/assets/a1e1c919-be9c-4a52-b242-5b347233a62c" />
+<img width="1920" height="1080" alt="Screenshot (178)" src="https://github.com/user-attachments/assets/75eb9bb7-490f-47ad-b8e5-2cd01fa40227" /> <img width="1920" height="1080" alt="Screenshot (179)" src="https://github.com/user-attachments/assets/3ef308e9-66ea-400f-bda5-c4fc609145d8" /> <img width="1920" height="1080" alt="Screenshot (180)" src="https://github.com/user-attachments/assets/2ec3b1ba-7c3a-4a6a-bfe9-d92979b880f9" />
+
+
 
 
 
