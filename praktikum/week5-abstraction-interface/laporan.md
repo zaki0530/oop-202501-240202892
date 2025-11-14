@@ -3,7 +3,7 @@ Topik: Abstraksi dan Interface (Penerapan Polimorfisme)
 ## Identitas
 - Nama  : Abu Zaki
 - NIM   : 240202892
-- Kelas : 3IKRb
+- Kelas : 3IKRB
 
 ---
 
@@ -284,7 +284,8 @@ public class MainAbstraction {
 
 ## Hasil Eksekusi
 (Sertakan screenshot hasil eksekusi program.  
-![Uploading Screenshot (178).png…]() ![Uploading Screenshot (179).png…]() ![Uploading Screenshot (180).png…]()
+<img width="1920" height="1080" alt="Screenshot (180)" src="https://github.com/user-attachments/assets/a1e1c919-be9c-4a52-b242-5b347233a62c" />
+
 
 
 
