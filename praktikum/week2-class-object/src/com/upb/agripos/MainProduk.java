@@ -1,7 +1,7 @@
-package com.upb.agripos; 
+package main.com.upb.agripos; 
 
-import com.upb.agripos.model.*;
-import com.upb.agripos.util.CreditBy;
+import main.com.upb.agripos.model.*;
+import main.com.upb.agripos.util.CreditBy;
 
 public class MainProduk {
     public static void main(String[] args) {

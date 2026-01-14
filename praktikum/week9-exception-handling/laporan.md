@@ -1,73 +1,64 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
-Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
+---
+
+### 2. Laporan Week 9 (Exception Handling)
+**File:** `praktikum/week9-exception-handling/laporan_week9.md`
+
+```markdown
+# Laporan Praktikum Week 9 - Exception Handling
 
 ## Identitas
-- Nama  : [Nama Mahasiswa]
-- NIM   : [NIM Mahasiswa]
-- Kelas : [Kelas]
+- Nama  : Abu Zaki
+- NIM   : 240202892
+- Kelas : OOP
 
 ---
 
-## Tujuan
-(Tuliskan tujuan praktikum minggu ini.  
-Contoh: *Mahasiswa memahami konsep class dan object serta dapat membuat class Produk dengan enkapsulasi.*)
+## A. Tujuan Pembelajaran
+1. Menjelaskan perbedaan antara error dan exception.
+2. Mengimplementasikan try–catch–finally dengan tepat.
+3. Membuat custom exception sesuai kebutuhan program.
 
 ---
 
 ## Dasar Teori
-(Tuliskan ringkasan teori singkat (3–5 poin) yang mendasari praktikum.  
-Contoh:  
-1. Class adalah blueprint dari objek.  
-2. Object adalah instansiasi dari class.  
-3. Enkapsulasi digunakan untuk menyembunyikan data.)
+1. **Exception**: Kondisi abnormal yang terjadi saat program berjalan yang dapat ditangani agar program tidak berhenti mendadak (crash).
+2. **Try-Catch**: Blok kode untuk menangkap exception. `Try` berisi kode yang berpotensi error, `Catch` berisi penanganan error tersebut.
+3. **Custom Exception**: Class exception buatan sendiri yang mewarisi class `Exception`, digunakan untuk menangani validasi bisnis yang spesifik.
 
 ---
 
 ## Langkah Praktikum
-(Tuliskan Langkah-langkah dalam prakrikum, contoh:
-1. Langkah-langkah yang dilakukan (setup, coding, run).  
-2. File/kode yang dibuat.  
-3. Commit message yang digunakan.)
+1. **Membuat Exception**: Membuat 3 file class exception (`InvalidQuantity`, `ProductNotFound`, `InsufficientStock`).
+2. **Update Model**: Menambahkan atribut `stock` pada class `Product`.
+3. **Validasi**: Menambahkan kata kunci `throws` pada method di `ShoppingCart` dan logika pengecekan `if`.
+4. **Testing**: Menjalankan simulasi error di `MainExceptionDemo` menggunakan blok try-catch.
 
 ---
 
 ## Kode Program
-(Tuliskan kode utama yang dibuat, contoh:  
+InvalidQuantityException.java
+package com.upb.agripos;
 
-```java
-// Contoh
-Produk p1 = new Produk("BNH-001", "Benih Padi", 25000, 100);
-System.out.println(p1.getNama());
-```
-)
----
-
+public class InvalidQuantityException extends Exception {
+    public InvalidQuantityException(String msg) { 
+        super(msg); 
+    }
+}
 ## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
-)
----
 
 ## Analisis
-(
-- Jelaskan bagaimana kode berjalan.  
-- Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.  
-- Kendala yang dihadapi dan cara mengatasinya.  
-)
----
+Cara Kerja: Saat user memasukkan input yang salah (misal minus), program akan "melempar" (throw) exception. Blok catch kemudian menangkapnya dan menampilkan pesan error yang rapi, sehingga program tidak force close.
+
+Perbedaan: Minggu ini fokus pada ketahanan program (robustness), bukan hanya logika fungsional.
+
+Kendala: Menyesuaikan file Product.java yang berbeda versi dengan minggu sebelumnya, diatasi dengan mengupdate constructor Product agar memiliki stok.
 
 ## Kesimpulan
-(Tuliskan kesimpulan dari praktikum minggu ini.  
-Contoh: *Dengan menggunakan class dan object, program menjadi lebih terstruktur dan mudah dikembangkan.*)
-
----
+Exception handling sangat krusial dalam aplikasi POS untuk mencegah data yang tidak valid masuk ke sistem (seperti stok minus). Custom exception membantu programmer memahami jenis kesalahan spesifik yang terjadi.
 
 ## Quiz
-(1. [Tuliskan kembali pertanyaan 1 dari panduan]  
-   **Jawaban:** …  
+Jelaskan perbedaan error dan exception. Jawaban: Error adalah masalah serius dari sistem (seperti OutOfMemory) yang sulit dipulihkan, sedangkan Exception adalah masalah logika program (seperti NullPointer) yang bisa ditangani dengan try-catch.
 
-2. [Tuliskan kembali pertanyaan 2 dari panduan]  
-   **Jawaban:** …  
+Apa fungsi finally dalam blok try–catch–finally? Jawaban: Blok finally berisi kode yang akan SELALU dijalankan baik terjadi error maupun tidak, biasanya digunakan untuk menutup koneksi atau membersihkan resource.
 
-3. [Tuliskan kembali pertanyaan 3 dari panduan]  
-   **Jawaban:** …  )
+Mengapa custom exception diperlukan? Jawaban: Agar pesan kesalahan lebih spesifik dan sesuai dengan bahasa bisnis aplikasi (contoh: "Stok Tidak Cukup" lebih jelas daripada error umum Java).

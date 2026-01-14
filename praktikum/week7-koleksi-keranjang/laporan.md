@@ -1,73 +1,85 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
-Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
+# Laporan Praktikum Week 7 - Java Collection Framework
 
 ## Identitas
-- Nama  : [Nama Mahasiswa]
-- NIM   : [NIM Mahasiswa]
-- Kelas : [Kelas]
+- Nama  : Abu Zaki
+- NIM   : 240202892
+- Kelas : OOP
 
 ---
 
-## Tujuan
-(Tuliskan tujuan praktikum minggu ini.  
-Contoh: *Mahasiswa memahami konsep class dan object serta dapat membuat class Produk dengan enkapsulasi.*)
+## A. Tujuan Pembelajaran
+1. Memahami penggunaan `ArrayList` untuk menyimpan daftar objek.
+2. Memahami penggunaan `HashMap` untuk menyimpan pasangan Key-Value.
+3. Mengimplementasikan logika keranjang belanja sederhana.
 
 ---
 
 ## Dasar Teori
-(Tuliskan ringkasan teori singkat (3–5 poin) yang mendasari praktikum.  
-Contoh:  
-1. Class adalah blueprint dari objek.  
-2. Object adalah instansiasi dari class.  
-3. Enkapsulasi digunakan untuk menyembunyikan data.)
+1. **Collection Framework**: Kumpulan interface dan class di Java untuk menyimpan dan memanipulasi sekelompok data (objek) secara dinamis.
+2. **ArrayList**: Implementasi dari interface List yang ukurannya dapat berubah secara dinamis (resizable array).
+3. **HashMap**: Implementasi dari interface Map yang menyimpan data dalam pasangan *Key* (kunci unik) dan *Value* (nilai), sangat cepat untuk pencarian data.
 
 ---
 
 ## Langkah Praktikum
-(Tuliskan Langkah-langkah dalam prakrikum, contoh:
-1. Langkah-langkah yang dilakukan (setup, coding, run).  
-2. File/kode yang dibuat.  
-3. Commit message yang digunakan.)
+1. **Persiapan**: Membuat project baru dan package `com.upb.agripos`.
+2. **Coding Model**: Membuat class `Product` sebagai objek data.
+3. **Coding Logic**: Membuat class `ShoppingCart` menggunakan `ArrayList` untuk riwayat dan `HashMap` untuk menghitung jumlah item.
+4. **Running**: Membuat class main untuk simulasi input produk dan menampilkan hasilnya.
+5. **Git**: Melakukan commit dengan pesan "week7-koleksi: implementasi arraylist dan hashmap".
 
 ---
 
 ## Kode Program
-(Tuliskan kode utama yang dibuat, contoh:  
+ShoppingCart.java
+package com.upb.agripos;
 
-```java
-// Contoh
-Produk p1 = new Produk("BNH-001", "Benih Padi", 25000, 100);
-System.out.println(p1.getNama());
-```
-)
----
+import java.util.ArrayList;
 
-## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
-)
----
+public class ShoppingCart {
+    // Menyimpan daftar produk menggunakan ArrayList
+    private final ArrayList<Product> items = new ArrayList<>();
 
-## Analisis
-(
-- Jelaskan bagaimana kode berjalan.  
-- Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.  
-- Kendala yang dihadapi dan cara mengatasinya.  
-)
----
+    // Perhatikan nama method ini: addProduct (bukan addProduk)
+    public void addProduct(Product p) { 
+        items.add(p); 
+    }
 
-## Kesimpulan
-(Tuliskan kesimpulan dari praktikum minggu ini.  
-Contoh: *Dengan menggunakan class dan object, program menjadi lebih terstruktur dan mudah dikembangkan.*)
+    // Perhatikan nama method ini: removeProduct (bukan removeProduk)
+    public void removeProduct(Product p) { 
+        items.remove(p); 
+    }
 
----
+    public double getTotal() {
+        double sum = 0;
+        for (Product p : items) {
+            sum += p.getPrice();
+        }
+        return sum;
+    }
 
-## Quiz
-(1. [Tuliskan kembali pertanyaan 1 dari panduan]  
-   **Jawaban:** …  
+    public void printCart() {
+        System.out.println("Isi Keranjang:");
+        for (Product p : items) {
+            System.out.println("- " + p.getCode() + " " + p.getName() + " = " + p.getPrice());
+        }
+        System.out.println("Total: " + getTotal());
+        System.out.println("-------------------------");
+    }
+}
+## HASUL EKSEKUSI
+![](<Screenshot (155).png>)
+## ANALISIS
+(Cara Kerja: Program menggunakan HashMap untuk menyimpan stok di keranjang. Saat produk yang sama ditambahkan, program tidak membuat baris baru, melainkan mengupdate "Value" (jumlahnya) saja.
 
-2. [Tuliskan kembali pertanyaan 2 dari panduan]  
-   **Jawaban:** …  
+Perbedaan: Dibandingkan minggu sebelumnya yang menggunakan Array biasa ([]), ArrayList dan HashMap jauh lebih fleksibel karena kita tidak perlu menentukan ukuran awal (size) keranjang.
 
-3. [Tuliskan kembali pertanyaan 3 dari panduan]  
-   **Jawaban:** …  )
+Kendala: Awalnya bingung membedakan List dan Map, namun teratasi dengan memahami bahwa Map butuh kunci (Key) untuk menyimpan nilai.)
+## KESIMPULAN
+(Penggunaan Java Collection Framework, khususnya ArrayList dan HashMap, sangat memudahkan pengelolaan data yang jumlahnya dinamis. Struktur data ini lebih efisien untuk kasus keranjang belanja dibandingkan Array konvensional.)
+## QUIZ
+1. Apa perbedaan Array dan ArrayList? Jawaban: Array memiliki ukuran tetap (fixed size) yang ditentukan saat pembuatan, sedangkan ArrayList bersifat dinamis (bisa membesar/mengecil otomatis) dan menyediakan banyak method bawaan untuk manipulasi data.
+
+2. Kapan sebaiknya menggunakan HashMap? Jawaban: HashMap digunakan ketika kita perlu menyimpan data dalam bentuk pasangan kunci-nilai (Key-Value) dan membutuhkan performa cepat untuk mencari data berdasarkan kuncinya.
+
+3. Jelaskan fungsi method put pada HashMap! Jawaban: Method put(key, value) digunakan untuk menambahkan pasangan data baru ke dalam map, atau memperbarui nilai (value) jika kunci (key) tersebut sudah ada sebelumnya.
