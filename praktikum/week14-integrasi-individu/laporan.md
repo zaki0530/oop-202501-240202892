@@ -1,73 +1,57 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
-Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
+# Laporan Praktikum Week 14 – Integrasi Individu (Agri-POS)
 
 ## Identitas
-- Nama  : [Nama Mahasiswa]
-- NIM   : [NIM Mahasiswa]
-- Kelas : [Kelas]
+- **Nama** : Abu Zaki
+- **NIM** : 240202892
+- **Kelas** : OOP
 
 ---
 
-## Tujuan
-(Tuliskan tujuan praktikum minggu ini.  
-Contoh: *Mahasiswa memahami konsep class dan object serta dapat membuat class Produk dengan enkapsulasi.*)
+## A. Ringkasan Aplikasi
+Agri-POS adalah aplikasi kasir pertanian berbasis desktop (JavaFX) yang mengintegrasikan konsep OOP, Database, dan GUI. Aplikasi ini memiliki dua fitur utama:
+1. **Manajemen Produk (CRUD)**: Admin dapat melihat, menambah, dan menghapus data produk yang tersimpan di database PostgreSQL/MySQL.
+2. **Transaksi Kasir (Keranjang)**: Kasir dapat memilih produk, memasukkan jumlah beli, dan sistem akan menghitung total harga secara otomatis menggunakan logika keranjang belanja (Collections).
 
 ---
 
-## Dasar Teori
-(Tuliskan ringkasan teori singkat (3–5 poin) yang mendasari praktikum.  
-Contoh:  
-1. Class adalah blueprint dari objek.  
-2. Object adalah instansiasi dari class.  
-3. Enkapsulasi digunakan untuk menyembunyikan data.)
+## B. Integrasi Konsep (Bab 1–13)
+Aplikasi ini menggabungkan materi-materi berikut:
+1. **OOP Basic**: Penggunaan Class `Product` dan `CartItem` sebagai Model.
+2. **Collections (Bab 7)**: Menggunakan `List<CartItem>` pada `CartService` untuk menampung belanjaan sementara.
+3. **Exception Handling (Bab 9)**: Validasi input (stok minus, input huruf) menggunakan custom exception `ValidationException`.
+4. **Design Pattern (Bab 10)**: Menggunakan **Singleton Pattern** pada class `DatabaseHelper` untuk efisiensi koneksi database.
+5. **DAO + JDBC (Bab 11)**: Akses data terpisah di layer `dao` (`JdbcProductDAO`) tanpa mencampur SQL di layer tampilan.
+6. **GUI JavaFX (Bab 12-13)**: Antarmuka pengguna berbasis Event-Driven dengan `TableView` dan pemisahan layer MVC.
 
 ---
 
-## Langkah Praktikum
-(Tuliskan Langkah-langkah dalam prakrikum, contoh:
-1. Langkah-langkah yang dilakukan (setup, coding, run).  
-2. File/kode yang dibuat.  
-3. Commit message yang digunakan.)
+## C. Tabel Traceability
+
+| Artefak | Referensi | Handler / Trigger | Controller / Service | DAO | Dampak |
+|---|---|---|---|---|---|
+| **Use Case** | UC-01 Tambah Produk | Tombol "Tambah Produk" | `PosController.saveProduct()` → `ProductService.addProduct()` | `JdbcProductDAO.insert()` | Data tersimpan di DB & Tabel Refresh |
+| **Use Case** | UC-02 Hapus Produk | Tombol "Hapus" | `PosController.deleteProduct()` → `ProductService.deleteProduct()` | `JdbcProductDAO.delete()` | Data hilang dari DB |
+| **Activity** | AD-01 Masuk Keranjang | Tombol "Masuk Keranjang" | `PosController.addToCart()` → `CartService.addItem()` | - | Item masuk ke List memori & Tabel Kanan update |
+| **Sequence** | SD-01 Hitung Total | Loop Keranjang | `CartService.getTotal()` → `Cart.calculateGrandTotal()` | - | Label Total Harga berubah sesuai jumlah barang |
 
 ---
 
-## Kode Program
-(Tuliskan kode utama yang dibuat, contoh:  
+## D. Hasil Eksekusi & Testing
 
-```java
-// Contoh
-Produk p1 = new Produk("BNH-001", "Benih Padi", 25000, 100);
-System.out.println(p1.getNama());
-```
-)
----
-
-## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
-)
----
-
-## Analisis
-(
-- Jelaskan bagaimana kode berjalan.  
-- Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.  
-- Kendala yang dihadapi dan cara mengatasinya.  
-)
----
-
-## Kesimpulan
-(Tuliskan kesimpulan dari praktikum minggu ini.  
-Contoh: *Dengan menggunakan class dan object, program menjadi lebih terstruktur dan mudah dikembangkan.*)
+**1. Tampilan Utama Aplikasi**
+Fitur CRUD (Kiri) dan Keranjang Belanja (Kanan) berjalan dalam satu window.
+![App Main] ![alt text](<Screenshot (162).png>) ![alt text](<Screenshot (169)-1.png>) ![alt text](<Screenshot (160).png>)
+**2. Hasil Unit Testing (Manual JUnit)**
+Pengujian logika `CartService` untuk memastikan perhitungan total dan validasi stok berjalan benar sebelum diintegrasikan ke GUI.
+![JUnit Result] ![alt text](<Screenshot (169).png>)
 
 ---
 
-## Quiz
-(1. [Tuliskan kembali pertanyaan 1 dari panduan]  
-   **Jawaban:** …  
+## E. Kendala & Solusi
+1. **Kendala**: Error `JavaFX runtime components are missing` saat menjalankan file AppJavaFX secara langsung.
+   **Solusi**: Membuat file `Launcher.java` sebagai pemancing (*workaround*) agar JDK memuat module JavaFX dengan benar sebelum aplikasi dimulai.
+   
+2. **Kendala**: Kesulitan sinkronisasi antara TableView Produk (Database) dan Keranjang (Memory).
+   **Solusi**: Memisahkan logika menjadi dua service berbeda (`ProductService` untuk DB, `CartService` untuk Memory), lalu disatukan di dalam satu Controller (`PosController`).
 
-2. [Tuliskan kembali pertanyaan 2 dari panduan]  
-   **Jawaban:** …  
-
-3. [Tuliskan kembali pertanyaan 3 dari panduan]  
-   **Jawaban:** …  )
+---
