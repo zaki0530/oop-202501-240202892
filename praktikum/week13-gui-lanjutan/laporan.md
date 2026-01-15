@@ -1,73 +1,132 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
-Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
+# Laporan Praktikum Week 13 – GUI Lanjutan (TableView & Lambda)
 
 ## Identitas
-- Nama  : [Nama Mahasiswa]
-- NIM   : [NIM Mahasiswa]
-- Kelas : [Kelas]
+- **Nama** : Abu Zaki
+- **NIM** : 240202892
+- **Kelas** : OOP
 
 ---
 
-## Tujuan
-(Tuliskan tujuan praktikum minggu ini.  
-Contoh: *Mahasiswa memahami konsep class dan object serta dapat membuat class Produk dengan enkapsulasi.*)
+## A. Tujuan Pembelajaran
+1. Menampilkan data database menggunakan komponen `TableView` JavaFX.
+2. Menerapkan *Lambda Expression* untuk memeperingkas penulisan event handler.
+3. Mengintegrasikan fitur CRUD (Create, Read, Delete) secara penuh antara GUI dan DAO.
 
 ---
 
 ## Dasar Teori
-(Tuliskan ringkasan teori singkat (3–5 poin) yang mendasari praktikum.  
-Contoh:  
-1. Class adalah blueprint dari objek.  
-2. Object adalah instansiasi dari class.  
-3. Enkapsulasi digunakan untuk menyembunyikan data.)
+1. **TableView**: Komponen JavaFX yang digunakan untuk menampilkan data dalam format baris dan kolom. TableView membutuhkan `ObservableList` agar setiap perubahan data (tambah/hapus) otomatis terlihat di layar tanpa refresh manual yang rumit.
+2. **Lambda Expression**: Fitur Java (sejak Java 8) yang memungkinkan penulisan kode fungsi anonim menjadi sangat ringkas. Contohnya `event -> action()` menggantikan penulisan `new EventHandler...`.
+3. **Data Binding**: Proses menghubungkan kolom tabel dengan properti pada class Model (`Product`), sehingga tabel tahu data mana yang harus ditampilkan di kolom "Harga", "Nama", dll.
 
 ---
 
 ## Langkah Praktikum
-(Tuliskan Langkah-langkah dalam prakrikum, contoh:
-1. Langkah-langkah yang dilakukan (setup, coding, run).  
-2. File/kode yang dibuat.  
-3. Commit message yang digunakan.)
+1. **Setup Project**: Melanjutkan struktur MVC dari Week 12 dan menambahkan library JavaFX.
+2. **Update Service**: Menambahkan metode `findAll()` dan `deleteProduct()` pada `ProductService` untuk mendukung kebutuhan tabel.
+3. **Desain GUI**: Mengganti `ProductFormView` menjadi `ProductTableView` yang memuat tabel data dan form input secara bersamaan.
+4. **Controller Logic**: 
+   - Menggunakan `FXCollections.observableArrayList` untuk menampung data dari database.
+   - Menggunakan Lambda Expression pada tombol "Simpan" dan "Hapus".
+5. **Testing**: Memastikan data lama muncul, data baru bisa ditambahkan, dan data terpilih bisa dihapus.
 
 ---
 
-## Kode Program
-(Tuliskan kode utama yang dibuat, contoh:  
+## Kode Program Utama
 
-```java
-// Contoh
-Produk p1 = new Produk("BNH-001", "Benih Padi", 25000, 100);
-System.out.println(p1.getNama());
-```
-)
----
+**1. Implementasi Lambda Expression (ProductController.java)**
+package com.upb.agripos.controller;
+
+import com.upb.agripos.model.Product;
+import com.upb.agripos.service.ProductService;
+import com.upb.agripos.view.ProductTableView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
+public class ProductController {
+    
+    private ProductTableView view;
+    private ProductService service;
+
+    public ProductController(ProductTableView view) {
+        this.view = view;
+        this.service = new ProductService();
+
+        // Load data awal saat aplikasi dibuka
+        loadData();
+
+        // Event Tombol Simpan (Lambda Expression)
+        this.view.getBtnSave().setOnAction(e -> simpanProduk());
+
+        // Event Tombol Hapus (Lambda Expression)
+        this.view.getBtnDelete().setOnAction(e -> hapusProduk());
+    }
+
+    private void loadData() {
+        // Ambil data dari DB, ubah jadi ObservableList agar TableView mengerti
+        ObservableList<Product> data = FXCollections.observableArrayList(service.findAll());
+        view.getTable().setItems(data);
+    }
+
+    private void simpanProduk() {
+        try {
+            String code = view.getTxtCode().getText();
+            String name = view.getTxtName().getText();
+            double price = Double.parseDouble(view.getTxtPrice().getText());
+            int stock = Integer.parseInt(view.getTxtStock().getText());
+
+            service.addProduct(code, name, price, stock);
+            view.clearForm();
+            loadData(); // Refresh tabel
+
+        } catch (Exception e) {
+            showAlert("Error Input", "Pastikan harga/stok berupa angka.");
+        }
+    }
+
+    private void hapusProduk() {
+        // Ambil item yang sedang dipilih di tabel
+        Product selected = view.getTable().getSelectionModel().getSelectedItem();
+        
+        if (selected != null) {
+            service.deleteProduct(selected.getCode());
+            loadData(); // Refresh tabel
+        } else {
+            showAlert("Peringatan", "Pilih produk di tabel dulu untuk dihapus!");
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}
+
+## Load Data ke Tabel (ProductController.java)
+private void loadData() {
+    // Mengambil List dari DAO, dibungkus jadi ObservableList
+    ObservableList<Product> data = FXCollections.observableArrayList(service.findAll());
+    // Masukkan ke tabel
+    view.getTable().setItems(data);
+}
+
+## Setup Kolom Tabel (ProductTableView.java)
+TableColumn<Product, String> colName = new TableColumn<>("Nama");
+// Menghubungkan kolom dengan field "name" di class Product
+colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 ## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
-)
----
+![alt text](<Screenshot (168).png>)![alt text](<Screenshot (167).png>)
 
-## Analisis
-(
-- Jelaskan bagaimana kode berjalan.  
-- Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.  
-- Kendala yang dihadapi dan cara mengatasinya.  
-)
----
+## Artefak Bab 6
+Referensi,Handler GUI,Controller/Service,DAO,Dampak UI/DB
+Use Case,UC-02 Lihat Daftar,Saat Aplikasi Dibuka,Controller.loadData() → Service.findAll(),DAO.findAll() (SELECT *),Tabel otomatis terisi data dari DB
+Use Case,UC-03 Hapus Produk,"Tombol ""Hapus""",btnDelete.setOnAction(e -> ...),DAO.delete(code),Data hilang dari DB & Tabel me-refresh diri
+Sequence,SD-02 Hapus Data,Klik Baris -> Tombol Hapus,View mengambil item terpilih → Controller panggil Service,Eksekusi Query DELETE,Urutan validasi dan eksekusi sesuai diagram
 
 ## Kesimpulan
-(Tuliskan kesimpulan dari praktikum minggu ini.  
-Contoh: *Dengan menggunakan class dan object, program menjadi lebih terstruktur dan mudah dikembangkan.*)
-
----
-
-## Quiz
-(1. [Tuliskan kembali pertanyaan 1 dari panduan]  
-   **Jawaban:** …  
-
-2. [Tuliskan kembali pertanyaan 2 dari panduan]  
-   **Jawaban:** …  
-
-3. [Tuliskan kembali pertanyaan 3 dari panduan]  
-   **Jawaban:** …  )
+Penggunaan TableView membuat tampilan data jauh lebih informatif dibandingkan sekadar log teks. Integrasi ObservableList dengan DAO memungkinkan aplikasi bersifat responsif; saat data dihapus di database, tampilan tabel langsung menyesuaikan diri. Penggunaan Lambda Expression juga berhasil mengurangi jumlah baris kode (boilerplate) secara signifikan di bagian Controller.
