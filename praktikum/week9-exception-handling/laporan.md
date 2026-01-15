@@ -1,10 +1,4 @@
----
-
-### 2. Laporan Week 9 (Exception Handling)
-**File:** `praktikum/week9-exception-handling/laporan_week9.md`
-
-```markdown
-# Laporan Praktikum Week 9 - Exception Handling
+## 2. Laporan Week 9 (Exception Handling)
 
 ## Identitas
 - Nama  : Abu Zaki
@@ -45,7 +39,7 @@ public class InvalidQuantityException extends Exception {
     }
 }
 ## Hasil Eksekusi
-
+![](<Screenshot (156).png>)
 ## Analisis
 Cara Kerja: Saat user memasukkan input yang salah (misal minus), program akan "melempar" (throw) exception. Blok catch kemudian menangkapnya dan menampilkan pesan error yang rapi, sehingga program tidak force close.
 

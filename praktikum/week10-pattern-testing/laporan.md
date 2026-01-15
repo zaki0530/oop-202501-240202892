@@ -1,73 +1,70 @@
-# Laporan Praktikum Minggu 1 (sesuaikan minggu ke berapa?)
-Topik: [Tuliskan judul topik, misalnya "Class dan Object"]
+## Laporan Week 10 (Design Pattern)
 
 ## Identitas
-- Nama  : [Nama Mahasiswa]
-- NIM   : [NIM Mahasiswa]
-- Kelas : [Kelas]
+- Nama  : Abu Zaki
+- NIM   : 240202892
+- Kelas : OOP
 
 ---
 
-## Tujuan
-(Tuliskan tujuan praktikum minggu ini.  
-Contoh: *Mahasiswa memahami konsep class dan object serta dapat membuat class Produk dengan enkapsulasi.*)
+## A. Tujuan Pembelajaran
+1. Menerapkan Design Pattern Singleton.
+2. Mengimplementasikan arsitektur MVC (Model-View-Controller).
+3. Memisahkan logika aplikasi menjadi komponen yang terstruktur.
 
 ---
 
 ## Dasar Teori
-(Tuliskan ringkasan teori singkat (3–5 poin) yang mendasari praktikum.  
-Contoh:  
-1. Class adalah blueprint dari objek.  
-2. Object adalah instansiasi dari class.  
-3. Enkapsulasi digunakan untuk menyembunyikan data.)
+1. **Design Pattern**: Solusi umum yang dapat digunakan kembali untuk masalah yang sering muncul dalam desain perangkat lunak.
+2. **Singleton Pattern**: Pola desain yang memastikan sebuah class hanya memiliki satu *instance* (objek) saja selama aplikasi berjalan.
+3. **MVC (Model-View-Controller)**: Pola arsitektur yang memisahkan data (Model), tampilan (View), dan logika pengontrol (Controller).
 
 ---
 
 ## Langkah Praktikum
-(Tuliskan Langkah-langkah dalam prakrikum, contoh:
-1. Langkah-langkah yang dilakukan (setup, coding, run).  
-2. File/kode yang dibuat.  
-3. Commit message yang digunakan.)
+1. **Refactoring**: Mengelompokkan file java ke dalam package `model`, `view`, `controller`, dan `config`.
+2. **Singleton**: Membuat class `DatabaseConnection` dengan method `getInstance`.
+3. **MVC**: Memisahkan kode `Product` (data), `ConsoleView` (tampilan), dan `ProductController` (logika).
+4. **Testing**: Menjalankan `AppMVC.java` untuk menguji struktur baru.
 
 ---
 
 ## Kode Program
-(Tuliskan kode utama yang dibuat, contoh:  
+DatabaseConnection.java
+package com.upb.agripos.config;
 
-```java
-// Contoh
-Produk p1 = new Produk("BNH-001", "Benih Padi", 25000, 100);
-System.out.println(p1.getNama());
-```
-)
----
+public class DatabaseConnection {
+    // Satu-satunya instance yang disimpan
+    private static DatabaseConnection instance;
 
+    // Constructor private agar tidak bisa di-new dari luar
+    private DatabaseConnection() {
+        System.out.println("Database connection created.");
+    }
+
+    // Method statis untuk mengambil instance
+    public static DatabaseConnection getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnection();
+        }
+        return instance;
+    }
+}
 ## Hasil Eksekusi
-(Sertakan screenshot hasil eksekusi program.  
-![Screenshot hasil](screenshots/hasil.png)
-)
----
-
+![](<Screenshot (144).png>)
 ## Analisis
-(
-- Jelaskan bagaimana kode berjalan.  
-- Apa perbedaan pendekatan minggu ini dibanding minggu sebelumnya.  
-- Kendala yang dihadapi dan cara mengatasinya.  
-)
----
+Cara Kerja: Aplikasi dimulai dari AppMVC yang memanggil Controller. Controller mengambil data dari Model dan mengirimkannya ke View untuk ditampilkan.
+
+Perbedaan: Kode menjadi jauh lebih rapi karena terpisah-pisah (Separation of Concerns).
+
+Kendala: Sempat terjadi error package saat memindahkan file ke folder baru, diatasi dengan fitur "Quick Fix" di VS Code dan Clean Workspace.
 
 ## Kesimpulan
-(Tuliskan kesimpulan dari praktikum minggu ini.  
-Contoh: *Dengan menggunakan class dan object, program menjadi lebih terstruktur dan mudah dikembangkan.*)
-
----
+Penerapan Design Pattern dan MVC membuat kode program lebih mudah dipelihara (maintainable) dan dikembangkan (scalable). Singleton sangat efektif untuk menghemat penggunaan memori pada objek koneksi.
 
 ## Quiz
-(1. [Tuliskan kembali pertanyaan 1 dari panduan]  
-   **Jawaban:** …  
+1. Apa tujuan utama dari Singleton Pattern? Jawaban: Untuk membatasi instansiasi class menjadi satu objek saja dan menyediakan satu titik akses global ke objek tersebut.
 
-2. [Tuliskan kembali pertanyaan 2 dari panduan]  
-   **Jawaban:** …  
+2. Jelaskan peran Controller dalam MVC! Jawaban: Controller bertindak sebagai penghubung antara Model dan View. Ia menerima input, memproses data logika bisnis, dan menentukan tampilan apa yang akan dikeluarkan.
 
-3. [Tuliskan kembali pertanyaan 3 dari panduan]  
-   **Jawaban:** …  )
+3. Sebutkan keuntungan menggunakan MVC! Jawaban: Kode lebih terorganisir, memudahkan kerja tim (frontend/backend terpisah), dan mempermudah testing
