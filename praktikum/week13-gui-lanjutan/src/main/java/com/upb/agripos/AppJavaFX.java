@@ -1,7 +1,7 @@
 package com.upb.agripos;
 
 import com.upb.agripos.controller.ProductController;
-import com.upb.agripos.view.ProductFormView;
+import com.upb.agripos.view.ProductTableView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,17 +11,14 @@ public class AppJavaFX extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // 1. Buat Objek View (Tampilan)
-            ProductFormView view = new ProductFormView();
-
-            // 2. Buat Controller (Hubungkan dengan View tadi)
-            // PERHATIKAN: Yang dikirim adalah 'view', BUKAN 'this'
+            // Gunakan View yang baru (Tabel)
+            ProductTableView view = new ProductTableView();
+            
+            // Hubungkan Controller
             new ProductController(view);
 
-            // 3. Masukkan View ke dalam Scene
-            Scene scene = new Scene(view, 400, 500);
-            
-            stage.setTitle("Agri-POS (Week 12 - MVC Final)");
+            Scene scene = new Scene(view, 600, 400); // Ukuran lebih lebar
+            stage.setTitle("Agri-POS (Week 13 - TableView & CRUD)");
             stage.setScene(scene);
             stage.show();
 

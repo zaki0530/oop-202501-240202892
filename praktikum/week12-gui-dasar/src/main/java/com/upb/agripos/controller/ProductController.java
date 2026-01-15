@@ -1,55 +1,37 @@
-package com.upb.agripos.controller;
+package com.upb.agripos;
 
-import com.upb.agripos.service.ProductService;
+// --- BAGIAN IMPORT INI SANGAT PENTING ---
+import com.upb.agripos.controller.ProductController;
 import com.upb.agripos.view.ProductFormView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+// ----------------------------------------
 
-public class ProductController {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    private ProductFormView view;
-    private ProductService service;
+public class ProductController extends Application {
 
-    public ProductController(ProductFormView view) {
-        this.view = view;
-        this.service = new ProductService(); // Panggil service yang konek ke DB
+    @Override
+    public void start(Stage stage) {
+        try {
+            // 1. Panggil View (Tampilan)
+            ProductFormView view = new ProductFormView();
 
-        // Pasang "Telinga" di tombol Simpan
-        this.view.getBtnSave().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                simpanProduk();
-            }
-        });
+            // 2. Panggil Controller (Otak)
+            new ProductController(view);
+
+            // 3. Tampilkan Jendela
+            Scene scene = new Scene(view, 400, 500);
+            stage.setTitle("Agri-POS (Week 12 - MVC Pattern)");
+            stage.setScene(scene);
+            stage.show();
+            
+        } catch (Exception e) {
+            e.printStackTrace(); // Tampilkan error di terminal jika ada masalah
+        }
     }
 
-    private void simpanProduk() {
-        try {
-            // 1. Ambil data dari View
-            String code = view.getCode();
-            String name = view.getName();
-            
-            // Validasi sederhana
-            if (code.isEmpty() || name.isEmpty()) {
-                view.appendLog("Error: Kode dan Nama tidak boleh kosong!");
-                return;
-            }
-
-            double price = Double.parseDouble(view.getPrice());
-            int stock = Integer.parseInt(view.getStock());
-
-            // 2. Kirim ke Service -> Database
-            service.addProduct(code, name, price, stock);
-
-            // 3. Beri kabar ke View
-            view.appendLog("Sukses: Data " + name + " berhasil disimpan!");
-            view.clearForm();
-
-        } catch (NumberFormatException e) {
-            view.appendLog("Error: Harga dan Stok harus angka!");
-        } catch (Exception e) {
-            view.appendLog("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 }

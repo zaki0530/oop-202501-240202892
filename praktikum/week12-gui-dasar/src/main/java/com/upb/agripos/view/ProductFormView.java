@@ -1,59 +1,37 @@
-package com.upb.agripos.view;
+package com.upb.agripos;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+// --- BAGIAN IMPORT INI SANGAT PENTING ---
+import com.upb.agripos.controller.ProductController;
+import com.upb.agripos.view.ProductFormView;
+// ----------------------------------------
 
-// View mewarisi VBox agar otomatis jadi layout vertikal
-public class ProductFormView extends VBox {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    // Komponen GUI kita jadikan public/memiliki getter agar bisa diakses Controller
-    private TextField txtCode = new TextField();
-    private TextField txtName = new TextField();
-    private TextField txtPrice = new TextField();
-    private TextField txtStock = new TextField();
-    private Button btnSave = new Button("Simpan Produk");
-    private TextArea txtResult = new TextArea();
+public class ProductFormView extends Application {
 
-    public ProductFormView() {
-        // 1. Setup Layout
-        this.setPadding(new Insets(20));
-        this.setSpacing(10); // Jarak antar elemen
+    @Override
+    public void start(Stage stage) {
+        try {
+            // 1. Panggil View (Tampilan)
+            ProductFormView view = new ProductFormView();
 
-        // 2. Setup Komponen
-        txtCode.setPromptText("Contoh: P01");
-        txtName.setPromptText("Contoh: Bibit Jagung");
-        txtResult.setPrefHeight(100);
-        txtResult.setEditable(false);
+            // 2. Panggil Controller (Otak)
+            new ProductController(view);
 
-        // 3. Masukkan semua ke dalam layar
-        this.getChildren().addAll(
-            new Label("Kode Produk:"), txtCode,
-            new Label("Nama Produk:"), txtName,
-            new Label("Harga:"), txtPrice,
-            new Label("Stok:"), txtStock,
-            btnSave,
-            new Label("Log Status:"), txtResult
-        );
+            // 3. Tampilkan Jendela
+            Scene scene = new Scene(view, 400, 500);
+            stage.setTitle("Agri-POS (Week 12 - MVC Pattern)");
+            stage.setScene(scene);
+            stage.show();
+            
+        } catch (Exception e) {
+            e.printStackTrace(); // Tampilkan error di terminal jika ada masalah
+        }
     }
 
-    // --- Getter untuk mengambil data inputan ---
-    public String getCode() { return txtCode.getText(); }
-    public String getName() { return txtName.getText(); }
-    public String getPrice() { return txtPrice.getText(); }
-    public String getStock() { return txtStock.getText(); }
-    public Button getBtnSave() { return btnSave; }
-
-    // --- Method untuk menampilkan pesan di layar ---
-    public void appendLog(String message) {
-        txtResult.appendText(message + "\n");
-    }
-    
-    // --- Method untuk membersihkan form ---
-    public void clearForm() {
-        txtCode.clear();
-        txtName.clear();
-        txtPrice.clear();
-        txtStock.clear();
+    public static void main(String[] args) {
+        launch(args);
     }
 }
